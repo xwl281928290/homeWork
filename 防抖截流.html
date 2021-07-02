@@ -1,0 +1,115 @@
+<!--
+ * @Author: 谢维林
+ * @Date: 2021-07-02 14:53:54
+ * @LastEditTime: 2021-07-02 18:01:38
+ * @LastEditors: 谢维林
+ * @Description: 
+ * @FilePath: /test/防抖截流.html
+ * 可以输入预定的版权声明、个性签名、空行等
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖与截流</title>
+</head>
+
+<body>
+
+    防抖input <input />
+
+    <!-- 防抖：你狂点按钮也没有，等你冷静下来事件才会触发。
+    节流：游戏里面的技能冷却功能。 -->
+    <script>
+
+        let input = document.getElementsByTagName('input')[0];
+        input.addEventListener('keyup', function (e) {
+            // debounceAjax(e.target.value);
+            // debounce1(ajax, e.target.value);
+
+
+            throttleAjax1(e.target.value)
+        })
+
+        //执行目标函数
+        function ajax(content) {
+            console.log('ajax request ' + content)
+        }
+
+        let debounceAjax = debounce2(ajax, 1000);
+        let throttleAjax1 = throttle1(ajax, 3000);
+
+        // 方式1
+        let time2;
+        function debounce1(fn, value) {
+            clearTimeout(time2);
+            time2 = setTimeout(function () {
+                fn(value)
+            }, 500)
+        };
+        // 方式2
+        function debounce2(func, wait) {
+            let timeout;
+            return function (value) {
+                // let context = this;
+                // let args = arguments;
+                if (timeout) clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    func(value)
+                    // func.apply(context, args)
+                }, wait);
+            }
+        }
+        // 方式3
+        function debounce3(fn, delay = 200) {
+            let timer = null;
+            return function () {
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(() => {
+                    fn.apply(this, arguments);
+                    timer = null;
+                }, delay);
+            }
+        }
+
+        // 
+        function throttle1(func, wait) {
+            let previous = 0;
+            return function () {
+                let now = Date.now();
+                let context = this;
+                let args = arguments;
+                if (now - previous > wait) {
+                    func.apply(context, args);
+                    previous = now;
+                }
+            }
+        }
+        
+
+        //定时器版
+        function throttle2(func, wait) {
+            let timeout;
+            return function () {
+                let context = this;
+                let args = arguments;
+                if (!timeout) {
+                    timeout = setTimeout(() => {
+                        timeout = null;
+                        func.apply(context, args)
+                    }, wait)
+                }
+            }
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>
