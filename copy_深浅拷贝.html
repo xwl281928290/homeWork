@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>copy_深浅拷贝</title>
+</head>
+
+<body>
+    <script>
+
+        // 浅拷贝： A复制了B 当改变 A 中的一个元素 B 中的这个元素也改变了
+        // 深拷贝： A复制了B 当改变 A 中的一个元素 B 中的元素并没有一起改变
+
+        //浅拷贝：只考虑对象类型。
+        function shallowCopy(obj) {
+            if (typeof obj !== 'object') return
+
+            let newObj = obj instanceof Array ? [] : {}
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    newObj[key] = obj[key]
+                }
+            }
+            return newObj
+        }
+
+        //简单版深拷贝：只考虑普通对象属性，不考虑内置对象和函数。
+        function deepClone(obj) {
+            if (typeof obj !== 'object') return;
+            var newObj = obj instanceof Array ? [] : {};
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key];
+                }
+            }
+            return newObj;
+        }
+
+        let temp = {
+            a: '1',
+            b: '2'
+        }
+
+        let a = deepClone(temp);
+        a.c = '3'
+        console.log(a)
+        console.log(temp)
+
+    </script>
+</body>
+
+</html>

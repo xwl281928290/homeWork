@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array 去重</title>
+</head>
+
+<body>
+    <script>
+
+        let arr = [2, 2, 4, 5, 7, 8, 9, 4, 6, 7, 8, 9]
+
+        function uniqueEs5(arr) {
+            var res = arr.filter(function (item, index, array) {
+                return array.indexOf(item) === index
+            })
+            return res
+        }
+
+        var uniqueEs6 = arr => [...new Set(arr)]
+
+        console.log(uniqueEs6(arr)) //[2, 4, 5, 7, 8, 9, 6]
+
+
+
+    </script>
+</body>
+
+</html>

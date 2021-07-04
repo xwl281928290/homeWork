@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array_数据扁平化</title>
+</head>
+
+<body>
+    <script>
+
+        // 数组扁平化就是将 [1, [2, [3]]] 这种多层的数组拍平成一层 [1, 2, 3]。
+        //  Array.prototype.flat 可以直接将多层数组拍平成一层：
+
+        let arr = [1, [2, [3, [4, [5]]]]];
+
+        console.log(arr.flat())     //[1, 2, Array(2)]
+        console.log(arr.flat(2))    //[1, 2, 3, Array(2)]
+        console.log(arr.flat(Infinity)) //[1, 2, 3, 4 ,5]  无限拍平
+
+        // es5 递归 实现
+        function flattenEs5(arr) {
+            var result = [];
+            for (var i = 0, len = arr.length; i < len; i++) {
+                if (Array.isArray(arr[i])) {
+                    result = result.concat(flattenEs5(arr[i]))
+                } else {
+                    result.push(arr[i])
+                }
+            }
+            return result;
+        }
+        console.log(flattenEs5(arr)) //[1, 2, 3, 4 ,5]   
+
+
+        // es6 实现
+        function flattenEs6(arr) {
+            while (arr.some(item => Array.isArray(item))) {
+                arr = [].concat(...arr);
+            }
+            return arr;
+        }
+        console.log(flattenEs6(arr)) //[1, 2, 3, 4 ,5]   
+
+
+
+
+    </script>
+</body>
+
+</html>

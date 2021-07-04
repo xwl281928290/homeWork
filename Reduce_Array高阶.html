@@ -56,7 +56,7 @@
         }, {})
         // console.log(newArr2) //{a: 3, b: 1, c: 1, d: 1, e: 1, …}
 
-        //将二维数组转化为一维
+        //将二维数组转化为一维 (超过2层不可以了)
         var arr3 = [[1, 2], 3, [4, 5]]
         const newArr3 = arr3.reduce((prev, item) => {
             if (Array.isArray(item)) {
