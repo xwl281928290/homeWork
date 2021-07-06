@@ -1,0 +1,116 @@
+<!--
+ * @Author: 谢维林
+ * @Date: 2021-07-05 15:18:13
+ * @LastEditTime: 2021-07-05 16:42:33
+ * @LastEditors: 谢维林
+ * @Description: 
+ * @FilePath: /homeWork/call-apply-bind总结.html
+ * 可以输入预定的版权声明、个性签名、空行等
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>call,apply,bind</title>
+</head>
+
+<body>
+    <script>
+
+        /**
+         * call apply bind 是干什么的
+         * 回答：
+         *     改变函数执行时的上下文 在具体一点就是改变函数运行时的this指向
+         * 区别：
+         *     1 call方法和apply方法会立刻执行，bind方法会返回一个函数
+         *     2 call方法和apply方法的传参数有一定区别
+        */
+
+        
+        /**
+         * call方法
+         * 是Function的原型定义方法，传参数有两块，前一块是目标的上下文，后面项为执行函数的参数
+         * call方法具体实现是在对应的上下文中去执行对应的方法。而后需要在函数执行后在上下文清除
+         * 
+        */
+        Function.prototype.mycall = function (context, ...args) {
+            let func = this;
+            let ctx = context || window;
+            context.fn = func;
+            let res = context.fn(...args);
+            delete context.fn;
+            return res;
+        }
+
+        /**
+         * apply方法
+         * 作用和call方法基本是一致的，主要区别是在于传参时，第二个参数传数组，而不是多个参数
+         * 
+        */
+        Function.prototype.mycall = function (context, args) {
+            let func = this;
+            let ctx = context || window;
+            context.fn = func;
+            let result;
+            if (!args) {
+                result = context.fn();
+            } else {
+                var arg = [];
+                for (var i = 0; i < args.length; i++) {
+                    arg.push('args[' + i + ']');
+                }
+                result = eval('context.fn(' + arg + ')');
+            }
+            delete context.fn
+            return result;
+        }
+
+        /**
+         * bind方法
+         * 相比与call和apply方法。
+         * 第一点：返回新的函数而不是立刻执行目标函数，
+         * 第二点。通过bind生成的函数而后无论尝试多次bind，call，apply，
+         * 其目标函数的上下文是不会改变的。其三。通过bind生成的函数被new实例化后上下文指向原对象
+         * 
+        */
+        Function.prototype.bind = function (context, ...args) {
+            let self = this;
+            let fNONP = function () { };
+            let fBind = function (...args2) {
+                let ctx = this;
+                self.apply(ctx instanceof fNONP ? ctx : context, args.concat(args2))
+            }
+            fNONP.prototype = this.prototype;
+            fBind.prototype = new fNONP();
+            return fBind;
+        }
+
+        let obj = {name:'tony'}
+        
+        function Child(name){
+            this.name = name;
+        }
+
+        Child.prototype = {
+            showName:function(){
+                console.log(this.name)
+            }
+        }
+        
+
+        var child = new Child('thomas');
+        child.showName(); //thomas
+        child.showName.call(obj); //tony
+        child.showName.apply(obj); //tony
+        child.showName.bind(obj)() //tony 返回的是函数
+        
+        
+
+
+    </script>
+</body>
+
+</html>
