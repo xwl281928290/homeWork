@@ -1,0 +1,52 @@
+<!--
+ * @Author: Mr.xie
+ * @Date: 2021-07-14 17:08:18
+ * @LastEditTime: 2021-07-14 17:20:37
+ * @LastEditors: Mr.xie
+ * @Description: 
+ * @FilePath: /homeWork/js进阶/for-in-of-foreacth-map.html
+ * 可以输入预定的版权声明、个性签名、空行等
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = ['a', 'b', 'c'];
+        arr.hobby = 'foosball';
+
+        for (let index in arr) { //原型链上的属性也会被访问
+            console.log(`${arr[index]}`);    // a b c 'foosball'
+        }
+
+        console.log('-------------------')
+        for (var value of arr) {
+            console.log(value);   // a b c
+        }
+
+        console.log('-------------------')
+        arr.forEach((value, index) => { //用break、continue和return语句
+            console.log(index + ':' + value) //0:a 1:b 2:c
+        })
+
+        console.log('-------------------')
+        for (var i = 0; i < arr.length; i++) {
+            console.log(i + ':' + arr[i]) //0:a 1:b 2:c
+        }
+        console.log('-------------------')
+        arr.map((item) => {
+            console.log(item) //a b c
+        })
+
+
+    </script>
+</body>
+
+</html>
