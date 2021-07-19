@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-14 13:41:43
- * @LastEditTime: 2021-07-15 17:36:20
+ * @LastEditTime: 2021-07-19 14:38:32
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/js进阶/dachang.md
@@ -103,9 +103,43 @@
         xhr.send(data);
     }
 # vue自定义指令
+    全局指令：
+        Vue.directive( id, [definition] ) 方式注册全局指令，
+            1 参数1:指令名称（指令名称不需要加 v- 前缀，默认是自动加上前缀的，使用指令的时候一定要加上前缀）
+            2 参数2:可以是对象数据，也可以是一个指令函数。
 
+        <!-- 全局注册 -->
+        <input type="text" placeholder="我是全局自定义指令" v-focus>
+        Vue.directive("focus", {
+            inserted: function(el，binding){
+                el.focus();
+            }
+        })
+    局部指令：
+        <input type="text" placeholder="我是局部自定义指令" v-focus2>
+        new Vue({
+            el: "#app",
+            directives: {
+                focus2: {
+                    inserted: function(el，binding){
+                        el.focus();
+                    }
+                }
+            }
+        })
+    钩子函数：自定义指令提供了5个钩子函数
+        bind：只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置。
+        inserted：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)。
+        update：所在组件的 VNode 更新时调用。
+        componentUpdated：指令所在组件的 VNode 及其子 VNode 全部更新后调用。
+        unbind：只调用一次，指令与元素解绑时调用
+    钩子函数参数：
+        el: 指令所绑定的元素，可以用来直接操作 DOM，就是放置指令的那个元素。
+        binding: 一个对象，里面包含了几个属性，这里不多展开说明，官方文档上都有很详细的描述。
+        vnode：Vue 编译生成的虚拟节点。
+        oldVnode：上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用
 # vue响应式原理
-
+    
 # meta标签里面的name = ‘viewport’ 是什么意思都那些属性 是基于谁缩放的
     1 viewport：在手机浏览器中能看到网页内容的那块区域称为可视区域，viewport就相当于那块可视区域
     2 缩放：initial-scale 缩放是根据设备宽度进行缩放
@@ -177,7 +211,21 @@
     4、HTTP 的连接很简单，是无状态的。HTTPS 协议是由 SSL+HTTP 协议构建的可进行加密 传输、身份认证的网络协议，比 HTTP 协议安全。(无状态的意思是其数据包的发送、传输 和接收都是相互独立的。无连接的意思是指通信双方都不长久的维持对方的任何信息。)
     
 # nginx怎么代理 配置项都是啥
-
+    server
+         {
+            listen      81 ;
+            server_name  www.baidu.com default;
+            index index.html;
+            root /data/abc/;
+            
+            #auth_basic "input you user name and password";
+            #auth_basic_user_file /data/test_pwd;
+                  
+            location / {
+                root   /data/abc/;
+                index  index.html index.htm;
+            }   
+         }
 # 跨域除了jsonp还有那些
     1 jsonp:
         var script = document.createElement("script"); 

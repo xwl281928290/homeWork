@@ -1,0 +1,70 @@
+<!--
+ * @Author: Mr.xie
+ * @Date: 2021-07-19 11:00:39
+ * @LastEditTime: 2021-07-19 11:46:53
+ * @LastEditors: Mr.xie
+ * @Description: 
+ * @FilePath: /homeWork/vue/vue响应式.html
+ * 可以输入预定的版权声明、个性签名、空行等
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="view"></div>
+    <script>
+        var view = document.getElementById('view')
+        var data = {}, i = 0;
+
+        /***
+         * obj：要定义的对象
+         * prop：要定义的对象的属性
+         * descriptor：要定义或修改的属性描述符
+        */
+        // Object.defineProperty(data, 'b', {
+        //     set: function (newValue) {
+        //         console.log('设置数据   ', newValue)
+        //         view.textContent = newValue
+        //     },
+        //     get: function (val) {
+        //         console.log('获取属性', val)
+        //     }
+        // })
+        // setInterval(function () {
+        //     i++;
+        //     data['b'] = `数据更新${i}` + i
+        // }, 1000)
+
+        /**
+         * 通过ES6的语法proxy(代理)对象来实现的
+         * 
+         * 优点：proxy可以检测到数组内部数据的变化
+        */
+        var newData = new Proxy(data, {
+            // target就是第一个参数obj, receive就是返回的obj(返回的proxy对象)
+            get: function (target, key, receive) {
+                // 返回该属性值
+                return target[key];
+            },
+            set: function (target, key, newVal, receive) {
+                view.textContent = newVal
+            }
+        })
+        // setInterval(function () {
+        //     i++;
+        //     newData['b'] = `数据更新${i}` + i
+        // }, 1000)
+
+    </script>
+</body>
+
+</html>
