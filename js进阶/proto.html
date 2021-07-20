@@ -1,0 +1,68 @@
+<!--
+ * @Author: Mr.xie
+ * @Date: 2021-07-20 11:05:37
+ * @LastEditTime: 2021-07-20 15:44:21
+ * @LastEditors: Mr.xie
+ * @Description: 
+ * @FilePath: /homeWork/js进阶/proto.html
+ * 可以输入预定的版权声明、个性签名、空行等
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- # 原型链以及对象原型和函数原型的区别
+
+    原型链：
+        当访问一个对象的属性时，如果该对象内部不存在这个访问的属性，
+        则会去它的__proto__属性所指的对象(父对象)里寻找，如果父对象不存在这个属性，
+        则继续往祖先对象的__proto__所指的对象(爷爷对象)里寻找，一直往上寻找...直到原型链顶端null，
+        此时如果继续往上相当于在null上取属性，系统就会报错(null可以理解为原型链的终点，到该点时结束)，
+        以上从访问的对象到null的一条链，我们称为原型链
+
+    obj：__proto__和constructor属性是对象所独有的
+        __proto__：
+            对象所拥有的，__proto__属性都是由一个对象指向另一个对象，也就是指向它们的原型对象(也可以理解为父对象)
+
+    Fn：prototype是函数所独有的
+        prototype：它是从一个函数指向一个对象，所指的对象就是函数的原型对象
+
+    特点：js中函数也是一种对象 也拥有__proto__和constructor属性
+        在生成对象时 对象的__proto__属性指向函数的prototype属性 -->
+    <script>
+
+
+        var obj = {
+            name: 18,
+        }
+        // obj.__proto__.age = '19'
+
+        console.log(obj.age)
+        var obj1 = new obj();
+
+
+        console.log('对象原型')
+        console.log(obj.__proto__)
+        console.log(obj.constructor)
+
+        function test() {
+            var i = 0;
+        }
+        console.log('函数原型')
+        console.log(test.__proto__)
+        console.log(test.constructor)
+        console.log(test.prototype)
+
+
+    </script>
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-14 13:41:43
- * @LastEditTime: 2021-07-19 14:38:32
+ * @LastEditTime: 2021-07-20 17:39:33
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/js进阶/dachang.md
@@ -74,7 +74,23 @@
         新增模块化逻辑 import 和 export 替换 AMD/commonjs/requesjs
 
 # 原型链以及对象原型和函数原型的区别
+    原型链：
+        当访问一个对象的属性时，如果该对象内部不存在这个访问的属性，
+        则会去它的__proto__属性所指的对象(父对象)里寻找，如果父对象不存在这个属性，
+        则继续往祖先对象的__proto__所指的对象(爷爷对象)里寻找，一直往上寻找...直到原型链顶端null，
+        此时如果继续往上相当于在null上取属性，系统就会报错(null可以理解为原型链的终点，到该点时结束)，
+        以上从访问的对象到null的一条链，我们称为原型链
 
+    obj：__proto__和constructor属性是对象所独有的
+        __proto__：
+            对象所拥有的，__proto__属性都是由一个对象指向另一个对象，也就是指向它们的原型对象(也可以理解为父对象)
+
+    Fn：prototype是函数所独有的
+        prototype：它是从一个函数指向一个对象，所指的对象就是函数的原型对象
+
+    特点：js中函数也是一种对象 也拥有__proto__和constructor属性
+        在生成对象时 对象的__proto__属性指向函数的prototype属性 
+    
 # ajax怎么设置是否携带cookies
     $.ajax({
 　　　　url: 'www.baidu.com',
@@ -139,6 +155,7 @@
         vnode：Vue 编译生成的虚拟节点。
         oldVnode：上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用
 # vue响应式原理
+    https://zhuanlan.zhihu.com/p/168768245
     
 # meta标签里面的name = ‘viewport’ 是什么意思都那些属性 是基于谁缩放的
     1 viewport：在手机浏览器中能看到网页内容的那块区域称为可视区域，viewport就相当于那块可视区域
