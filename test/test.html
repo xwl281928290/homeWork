@@ -1,0 +1,43 @@
+<!--
+ * @Author: Mr.xie
+ * @Date: 2021-07-21 17:00:11
+ * @LastEditTime: 2021-07-21 17:58:20
+ * @LastEditors: Mr.xie
+ * @Description: 
+ * @FilePath: /homeWork/test/test.html
+ * 可以输入预定的版权声明、个性签名、空行等
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+
+        var x = 0, y = 1;
+        [x, y] = [y, x]
+        console.log(x, y)
+
+
+        var a = 0, b = 1;
+        // 第一种
+        // a = (b = (a ^= b) ^ b) ^ a;
+        // 第二种
+        a ^= b
+        b ^= a
+        a ^= b
+        console.log(a, b)
+
+
+    </script>
+</body>
+
+</html>

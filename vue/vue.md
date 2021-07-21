@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-16 09:34:18
- * @LastEditTime: 2021-07-16 17:37:15
+ * @LastEditTime: 2021-07-21 15:45:29
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/vue/vue.md
@@ -107,6 +107,149 @@
         4 返回一个新对象 可以直接操作新对象 而 obj 只能遍历属性直接修改
     obj.de..:
         兼容性好 支持ie9 proxy 有兼容问题 且无法使用polyfill磨平
+
+        // 在对象中添加一个属性与存取描述符的示例
+        var bValue;
+        var o = {};
+        Object.defineProperty(o, "b", {
+            get : function(){
+                console.log('监听正在---获取b')
+                return bValue;
+            },
+            set : function(newValue){
+                console.log('监听正在---设置b')
+                bValue = newValue;
+            },
+            enumerable : true,
+            configurable : true
+        });
+
+        o.b = 38;
+        console.log(o.b)
+        打印：
+            // 监听正在设置b
+            // 监听正在获取b
+            // 38
+        结论：设置o.b时 调用set 获取o.b调用get
+# 观察者 模式
+    什么是观察者模式？它分为注册环节跟发布环节。
+    function objServe(){
+        this.dep = []
+        <!-- 统一注册 -->
+        register(fn){
+            this.dep.push(fn)
+        }
+        <!-- 集中通知 -->
+        notify(){
+            this.dep.forEach( item => item())
+        }
+    }
+    const wantCake = new Oberver();
+    // 每来一个顾客就注册一个想执行的函数
+    wantCake.register(() => {'console.log("call daisy")'})
+    wantCake.register(() => {'console.log("call anny")'})
+    wantCake.register(() => {'console.log("call sunny")'})
+
+    // 最后蛋糕做好之后，通知所有的客户
+    wantCake.notify()
+# vue响应式原理
+    借鉴文章： https://zhuanlan.zhihu.com/p/88648401
+    
+    一 init 阶段： VUE 的 data的属性都会被reactive化，也就是加上 setter/getter函数。
+        *****************************为代码start*****************************
+            function defineReactive(obj: Object, key: string, ...) {
+                const dep = new Dep()
+                Object.defineProperty(obj, key, {
+                    enumerable: true,
+                    configurable: true,
+                    get: function reactiveGetter () {
+                        ....
+                        dep.depend()
+                        return value
+                        ....
+                    },
+                    set: function reactiveSetter (newVal) {
+                        ...
+                        val = newVal
+                        dep.notify()
+                        ...
+                    }
+                })
+            }
+            
+            class Dep {
+                static target: ?Watcher;
+                subs: Array<Watcher>;
+                depend () {
+                    if (Dep.target) {
+                    Dep.target.addDep(this)
+                    }
+                }
+                notify () {
+                    const subs = this.subs.slice()
+                    for (let i = 0, l = subs.length; i < l; i++) {
+                    subs[i].update()
+                    }
+                }
+            }
+        *****************************为代码end*****************************
+        1 所有属性添加 setter/getter函数 每一个data的属性都会有一个dep对象
+        2 getter调用的时候，去dep里注册函数
+        3 setter的时候，就是去通知执行刚刚注册的函数。
+
+    二 mount 阶段：
+        *****************************为代码start*****************************
+            mountComponent(vm: Component, el: ?Element, ...) {
+                vm.$el = el
+                ...
+                updateComponent = () => {
+                    vm._update(vm._render(), ...)
+                }
+                new Watcher(vm, updateComponent, ...)
+                ...
+            }
+            class Watcher {
+                getter: Function;
+                constructor(vm: Component, expOrFn: string | Function, ...) {
+                    ...
+                    this.getter = expOrFn
+                    Dep.target = this                      // 注意这里将当前的Watcher赋值给了Dep.target
+                    this.value = this.getter.call(vm, vm)  // 调用组件的更新函数
+                    ...
+                }
+            }
+        *****************************为代码end*****************************
+        1 创建一个Watcher类的对象。这个Watcher实际上是连接Vue组件与Dep的桥梁 每一个Watcher对应一个vue component。
+        2 在new Watcher的时候，constructor 里的this.getter.call(vm, vm)函数会被执行  getter 其实就是 updateComponent（）
+        3 updateComponent函数会调用组件的render函数来更新重新渲染
+        4 render函数 会访问data属性 以及属性下面的 getter函数 （这个过程叫做搜集依赖）
+            render: function (createElement) {
+                return createElement('h1', this.blogTitle)
+            }
+            此时会去调用这个属性blogTitle的getter函数，即：
+                // getter函数
+                get: function reactiveGetter () {
+                    ....
+                    dep.depend()
+                    return value
+                    ....
+                },
+                // dep的depend函数
+                depend () {
+                    if (Dep.target) {
+                    Dep.target.addDep(this)
+                    }
+                }
+    三 更新阶段
+        1 当属性发生改变的时候，就去调用Dep的notify函数,然后通知所有的Watcher调用update函数更新。
+
+    总结：
+        1 组件初始化的时候，先给每一个Data属性都注册getter，setter，也就是reactive化。
+        2 然后再new 一个自己的Watcher对象，此时watcher会立即调用组件的render函数去生成虚拟DOM。
+        3 在调用render的时候，就会需要用到data的属性值，
+        4 此时会触发getter函数，将当前的Watcher函数注册进sub里。
+        5 当data属性发生改变之后，就会遍历sub里所有的watcher对象，通知它们去重新渲染组件。
+
 # vuex
     1 state
         状态树 定义需要管理的数组 对象 字符串等

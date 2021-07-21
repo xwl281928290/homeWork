@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-14 13:41:43
- * @LastEditTime: 2021-07-20 17:39:33
+ * @LastEditTime: 2021-07-21 10:07:52
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/js进阶/dachang.md
@@ -156,6 +156,7 @@
         oldVnode：上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用
 # vue响应式原理
     https://zhuanlan.zhihu.com/p/168768245
+    
     
 # meta标签里面的name = ‘viewport’ 是什么意思都那些属性 是基于谁缩放的
     1 viewport：在手机浏览器中能看到网页内容的那块区域称为可视区域，viewport就相当于那块可视区域
