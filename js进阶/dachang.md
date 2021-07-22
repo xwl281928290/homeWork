@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-14 13:41:43
- * @LastEditTime: 2021-07-21 10:07:52
+ * @LastEditTime: 2021-07-22 16:46:33
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/js进阶/dachang.md
@@ -193,7 +193,18 @@
     }
 
 # 手写去去重 多叉树递归遍历 深拷贝
-
+<!-- 深拷贝 -->
+    function deepCopy(object) {
+        if (!object || typeof object !== "object") return;
+        let newObject = Array.isArray(object) ? [] : {};
+        for (let key in object) {
+            if (object.hasOwnProperty(key)) {
+            newObject[key] =
+                typeof object[key] === "object" ? deepCopy(object[key]) : object[key];
+            }
+        }
+        return newObject;
+    }
 # 手写css布局 流式布局
 
 # css3用过那些属性

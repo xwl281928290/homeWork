@@ -1,42 +1,40 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-21 17:00:11
- * @LastEditTime: 2021-07-21 17:58:20
+ * @LastEditTime: 2021-07-22 16:52:44
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/test/test.html
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>闭包</title>
+    <style type="text/css">
+        div {
+            width: 100px;
+            height: 100px;
+            background: lightgreen;
+            float: left;
+            margin: 20px;
+            font: 30px/100px "microsoft yahei";
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-
-    <script>
-
-
-        var x = 0, y = 1;
-        [x, y] = [y, x]
-        console.log(x, y)
+    <div>2</div>
+    <span>3</span>
+    <script type="text/javascript">
 
 
-        var a = 0, b = 1;
-        // 第一种
-        // a = (b = (a ^= b) ^ b) ^ a;
-        // 第二种
-        a ^= b
-        b ^= a
-        a ^= b
-        console.log(a, b)
-
-
+        var x = 0.1;
+        var y = 0.2
+        console.log(x + y)
     </script>
 </body>
 
