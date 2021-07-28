@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-14 13:41:43
- * @LastEditTime: 2021-07-22 16:46:33
+ * @LastEditTime: 2021-07-27 15:38:17
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/js进阶/dachang.md
@@ -104,20 +104,28 @@
 　　　　}
 　　})
 # js原生ajax的方法
-    function fetch(method, url, data){
-        var xhr = new XMLHttpRequest();
-        var method = method || "GET";
+    
+    function ajax(method,url,data){
+        var xhr = new XMLHttpRequese();
+        var method = method || 'GET";
         var data = data || null;
-        xhr.open(method, url, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.status === 200 && xhr.readyState === 4) {
-                resolve(xhr.responseText);
-            } else {
-                reject(xhr.responseText);
-            }
+
+        if(method == 'GET'){
+            xhr.open(mehtod,url+?+data)
+        }else{
+            xhr.open(method,url)
+            xhr.setRequestHeader('Content-type','application/x-www-form-urliencoded')
         }
-        xhr.send(data);
+
+        xhr.send(methdo=='get'?'':data)
+
+        xhr.onreadyStatusChange funcution() {
+            if(xhr.status == 200 && xhr.readStatus == 4)
+        }
     }
+    　　
+    　　
+    　
 # vue自定义指令
     全局指令：
         Vue.directive( id, [definition] ) 方式注册全局指令，
@@ -171,6 +179,7 @@
 
 # 手写防抖截流函数
     // 防抖：你狂点按钮也没有，等你冷静下来事件才会触发。
+    //输入框输入
     function debounce1(func, wait) {
         let timeout;
         return function (value) {
@@ -194,16 +203,25 @@
 
 # 手写去去重 多叉树递归遍历 深拷贝
 <!-- 深拷贝 -->
-    function deepCopy(object) {
-        if (!object || typeof object !== "object") return;
-        let newObject = Array.isArray(object) ? [] : {};
-        for (let key in object) {
-            if (object.hasOwnProperty(key)) {
-            newObject[key] =
-                typeof object[key] === "object" ? deepCopy(object[key]) : object[key];
+    function deepCopy(obj) {
+        <!-- 判断是数组还是对象 -->
+        let objClone = Array.isArray(obj) ? [] : {};
+        <!-- 判断是不是对象 数组也是对象的一种 -->
+        if (obj && typeof obj === 'object') {
+            for (key in obj) {
+                console.log(key)
+                if (obj.hasOwnProperty(key)) {
+                    // 判断 obj 子元素是否为对象，如果是则递归复制
+                    if (obj[key] && typeof obj[key] === 'object') {
+                        objClone[key] = deepCopy(obj[key]);
+                    } else {
+                        // 如果不是则直接复制
+                        objClone[key] = obj[key];
+                    }
+                }
             }
         }
-        return newObject;
+        return objClone;
     }
 # 手写css布局 流式布局
 

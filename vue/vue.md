@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-16 09:34:18
- * @LastEditTime: 2021-07-21 15:45:29
+ * @LastEditTime: 2021-07-26 17:09:25
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/vue/vue.md
@@ -93,11 +93,16 @@
 
 # 生命周期
     含义：
-        创建 初始化 编译模版 挂载dom 更新 卸载 一系列过程 
-    1 beforeCreate / created
-    2 beforeMount / mounted
-    3 beforeUpdate / updated
-    4 deactivated / beforeDestory
+        创建 载入 更新  卸载 一系列过程 
+        1 beforeCreate / created
+        2 beforeMount / mounted
+        3 beforeUpdate / updated
+        4 deactivated / beforeDestory
+    什么阶段才能调用DOM
+        mounted 中可以访问操作 DOM。
+
+    什么阶段能发起请求
+        created、beforeMount、mounted 因为在这三个钩子函数中，data 已经创建，可以将服务端端返回的数据进行赋值。
 
 # Object.defineProperty 和 Proxy区别
     Proxy：

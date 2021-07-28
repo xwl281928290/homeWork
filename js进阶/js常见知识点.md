@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-21 16:26:13
- * @LastEditTime: 2021-07-22 17:03:07
+ * @LastEditTime: 2021-07-27 15:30:09
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/js进阶/js常见知识点.md
@@ -140,12 +140,14 @@
 # 数组和对象有那些原生方法
     数组和字符串转换：
         toString，toLocalString，join
-    尾部：
+    尾部：删除/添加
         pop，push
-    头部：
+    头部：删除/添加
         shift，unshift
+    反转：
+        reverse()
     排序：
-        reverse，sort
+        sort( (x,y) => return x-y)
     连接：
         concat
     截取：
