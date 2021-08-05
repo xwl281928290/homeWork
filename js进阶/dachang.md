@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-14 13:41:43
- * @LastEditTime: 2021-07-27 15:38:17
+ * @LastEditTime: 2021-08-05 14:26:49
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/js进阶/dachang.md
@@ -15,7 +15,7 @@
     4 对象扩展：
         1 属性的简写 
         2 省略：冒号与 function 关键字
-        3 Object.keys()方法 获取对象的所有属性名或方法名（不包括原形的内容），返回一个数组
+        3 Object.keys(xx)方法 获取对象的所有属性名或方法名（不包括原形的内容），返回一个数组
     5 解构赋值 
     6 import 和 export
     7 Map 与 Set的方法 :set相当于数组 map健值对的集合
@@ -62,6 +62,16 @@
 # 做过组件让团队共享么
 
 # element和ant 你知道是怎么实现调用的么
+
+# promise 与 async-await 有什么区别?
+    相同：
+        promise 和 async,await 都是异步编程的一种解决方法，
+    不同：
+        promise： 出现解决了传统 callback 函数回调地域的问题，支持链式调用可以停.then,promise 
+            分别有 3 种状态一旦函数执行 promise 有了结果就无法改变，
+            遇到复杂的业务逻辑 promise 显然不是那么方便需要不停 then 这样语法显然也不美观。
+        async,await： 是基于 promise 实现的，它返回的是一个 promise 对象，
+            可以使异步代码看起来像同步代码一样，更方便阅读和理解代码，解决了 promise 里面不停.then 的问题
 
 # requer。js有了解么 属于那个规范
     CommonJS：

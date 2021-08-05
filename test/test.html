@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-21 17:00:11
- * @LastEditTime: 2021-07-27 17:43:06
+ * @LastEditTime: 2021-08-04 17:13:39
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/test/test.html
@@ -29,67 +29,9 @@
 <body>
     <script type="text/javascript">
 
-        function deepCoyp(obj) {
-            if (typeof obj !== 'object') return obj
-            // 
-            let object = Array.isArray(obj) ? [] : {}
-            if (obj && typeof obj === 'object') {
-                for (key in obj) {
-                    if (obj.hashOwnProerty(key)) {
-                        if (obj[key] && typeof obj[key] === 'object') {
-                            objClone[key] = deepCopy(obj[key]);
-                        } else {
-                            objClone[key] = obj[key]
-                        }
-                    }
-                }
-            }
-            return object;
-        }
+        let obj = { name: '11', age: 12 }
 
-        let a = 111;
-
-        console.log(deepCoyp(a))
-
-        Vue.directive(id,)
-        Vue.directive('focus', {
-            inserted: function (el, binding) {
-
-            }
-        })
-
-        new Vue({
-            el: '#app',
-            directive: {
-                focus: {
-                    inserted: function (el, binding) {
-                        el.focus();
-                    }
-                }
-            }
-        })
-
-        new Vue({
-            el: '#app',
-            directive: {
-                focus: {
-                    inserted: function (el, binding) {
-                        el.focus();
-                    },
-                    bind: function (el, binding) {
-
-                    }
-                }
-            }
-        })
-
-        mounted
-
-
-
-
-
-
+        console.log(Object.keys(obj))
 
 
 

@@ -1,3 +1,12 @@
+<!--
+ * @Author: Mr.xie
+ * @Date: 2021-07-05 09:17:11
+ * @LastEditTime: 2021-08-04 16:57:54
+ * @LastEditors: Mr.xie
+ * @Description: 
+ * @FilePath: /homeWork/js进阶/Array_去重.html
+ * 可以输入预定的版权声明、个性签名、空行等
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +34,13 @@
         console.log(uniqueEs6(arr)) //[2, 4, 5, 7, 8, 9, 6]
 
 
+        // 平拍 去从 排序
+        let arr = [2, 1, 4, 6, 7, 9, [1], [4, [5]]]
+
+        let newArr = [...new Set(arr.flat(2))].sort((x, y) => {
+            return x - y;
+        })
+        console.log(newArr) // [1, 2, 4, 5, 6, 7, 9]
 
     </script>
 </body>
