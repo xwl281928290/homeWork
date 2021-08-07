@@ -1,0 +1,40 @@
+﻿
+一 node.js 安装 14.15.1 LTS（ Long Term Support ） 长期稳定版本
+    Vue3要求最低 node 8.0版本以上
+
+    1 安装镜像原 
+        npm install nrm  
+        nrm ls --->查看有哪些镜像原 (默认第一个https://registry.npmjs.org/)
+            * npm -------- https://registry.npmjs.org/
+                yarn ------- https://registry.yarnpkg.com/
+                cnpm ------- http://r.cnpmjs.org/
+                taobao ----- https://registry.npm.taobao.org/
+                nj --------- https://registry.nodejitsu.com/
+                npmMirror -- https://skimdb.npmjs.com/registry/
+                edunpm ----- http://registry.enpmjs.org/
+        nrm use taobao ---> (使用淘宝镜像原 相对比较快)
+
+        nrm ls  (修改成功)
+              npm -------- https://registry.npmjs.org/
+                yarn ------- https://registry.yarnpkg.com/
+                cnpm ------- http://r.cnpmjs.org/
+                * taobao ----- https://registry.npm.taobao.org/
+                nj --------- https://registry.nodejitsu.com/
+                npmMirror -- https://skimdb.npmjs.com/registry/
+                edunpm ----- http://registry.enpmjs.org/
+
+    2 Vuecli 安装
+        npm uninstall vue-cli -g (如果安装了老版本可以先卸载)
+        或 yarn global remove vue-cli
+
+        npm install -g @vue/cli
+        npm install -g @vue/cli@3.1.2 (安装指定版本)
+
+    3 创建项目
+        vue create vuetest （创建一个名字是vuetest的项目 注意创建名称不能包含大写字母）
+
+        默认一路回车即可
+
+        cd 进入 vuetest
+
+        npm run serve （3.0 使用serve 2.0 dev）

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com//vue@next"></script>
+</head>
+
+<body>
+    <di id='root'>
+        </div>
+</body>
+<script>
+    // 对数据做校验的插件
+    const app = Vue.createApp({
+        data() {
+            return {
+                name: 'dall',
+                age: 28
+            }
+        },
+        rules: {
+            age: {
+                validate: age => age > 25,
+                message: 'too young,to simple'
+            },
+            name: {
+                validate: name => name.length > 5,
+                message: 'name too short'
+            }
+        },
+        template: `
+            <div>name:{{name}},age:{{age}}</div>
+        `
+    })
+
+    // 混入方式 校验
+    app.mixin({
+        created() {
+            for (let key in this.$options.rules) {
+                const item = this.$options.rules[key];
+                this.$watch(key, (value) => {
+                    const rete = item.validate(value)
+                    if (!rete) {
+                        console.log(item.message)
+                    }
+                })
+            }
+        }
+    })
+
+    // 插件方式 校验 箭头函数方式
+    const validatorPlugin = (app, options) => {
+        app.mixin({
+            created() {
+                for (let key in this.$options.rules) {
+                    const item = this.$options.rules[key];
+                    this.$watch(key, (value) => {
+                        const rete = item.validate(value)
+                        if (!rete) {
+                            console.log(item.message)
+                        }
+                    })
+                }
+            }
+        })
+    }
+
+    // const validatorPlugin = {
+    //     install(app,options){}
+    // }
+
+    app.use(validatorPlugin);
+
+
+    // 组件挂载
+    const vm = app.mount('#root')
+</script>
+
+</html>

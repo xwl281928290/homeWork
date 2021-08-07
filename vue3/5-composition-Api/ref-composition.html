@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> composition 生命周期函数</title>
+    <script src="https://unpkg.com//vue@next"></script>
+</head>
+
+<body>
+    <div id='root'></div>
+</body>
+
+<script>
+    // ref
+    // 通过compositionApi 的语法下 获取真是dom 元素节点
+    const app = Vue.createApp({
+        setup() {
+            const {ref,onMounted } = Vue;
+            const getDom = ref(null);
+            onMounted(()=>{
+                console.log(getDom.value);
+            })
+            return {getDom}
+        },
+        template: `
+            <div >
+               <div ref="getDom">hello word</div>
+            </div>
+        `
+    })
+
+
+    // app挂载
+    const vm = app.mount('#root')
+</script>
+
+</html>

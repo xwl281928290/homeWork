@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> teleport 传送门</title>
+    <script src="https://unpkg.com//vue@next"></script>
+    <style>
+        .area {
+            position: absolute;
+            width: 200px;
+            height: 300px;
+            background-color: green;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .mask {
+            color: white;
+            font-size: 100px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: black;
+            opacity: 0.2;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='root'></div>
+</body>
+
+<script>
+    // teleport 传送门 to属性 对应的值 可以是 标签 或class id
+    const app = Vue.createApp({
+        data() {
+            return {
+                show: false
+            }
+        },
+        mounted() {},
+        template: `
+            <div class='area'>
+               <button @click='show=true'>按钮</button>
+                <teleport to='#root'>
+                    <div class='mask' v-show='show'></div>
+                </teleport>
+            </div> 
+        `
+    })
+
+
+    // app挂载
+    const vm = app.mount('#root')
+</script>
+
+</html>

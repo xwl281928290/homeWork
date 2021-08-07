@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com//vue@next"></script>
+</head>
+
+<body>
+    <di id='root'>
+        </div>
+</body>
+<script>
+    // plugin插件，也是吧通用行的功能封装起来
+    const myPlugin = {
+        install(app, options) {
+            console.log(app)
+
+            // myPlugin 在app这个实例上扩展了一个全局属性 名称是name 值是：dell
+            app.provide('name', 'dell') //提供：全局数据
+            app.directive('focus', { //插件内 自定义 指令
+                mounted(el) {
+                    el.focus();
+                }
+            })
+            app.mixin({ //插件内 混入
+                mounted() {
+                    console.log('mixin')
+                }
+            })
+
+            // 全局配置
+            app.config.globalProperties.$sayHello = 'heillo word!'
+        }
+    }
+
+    // 创建实力
+    const app = Vue.createApp({
+        template: `
+            <my-title/>
+        `
+    })
+
+    // 创建组件
+    app.component('my-title', {
+        inject: ['name'], //注入：获取 provide 数据
+        mounted() {
+            console.log(this.$sayHello)
+        },
+        template: `<div>{{name}} <input v-focus/></div>`
+    })
+
+    // use app语法 使用myPlugin插件
+    app.use(myPlugin, 'asdasd')
+
+    // 组件挂载
+    const vm = app.mount('#root')
+</script>
+
+</html>

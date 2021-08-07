@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> render 底层函数</title>
+    <script src="https://unpkg.com//vue@next"></script>
+</head>
+
+<body>
+    <div id='root'></div>
+</body>
+
+<script>
+    // render function
+    // template ->render ->h->虚拟dom对象-》真实dom -》展示到页面
+    const app = Vue.createApp({
+        template: `
+            <my-title :level="2">
+                heilo
+            </my-title>
+        `
+    })
+
+    app.component('my-title', {
+        props: ['level'],
+
+        render() {
+            const {
+                h
+            } = Vue;
+            // $slots 插槽可能有多个所以要加s 且因为不是具名插槽所以。default
+            // h('div','atter','')
+            // 真实dom
+            // <div>hello</div>
+            // 虚拟dom
+            // {
+            //     tagName:'div', //标签
+            //     attributes:{}, //属性
+            //     text:'hello',
+            // }
+            console.log(h)
+                // return h('h' + this.level, {}, this.$slots.default())
+
+            return h('h' + this.level, {}, [
+                this.$slots.default(),
+                h('h4', {}, 'del')
+                // h('h4', {}, ['del',h('h5',{},[])]) //可以无限嵌套
+            ])
+
+
+
+
+        }
+        // 这么写 太麻烦 vue 提供render函数 可以替代
+        // template: `
+        //     <h1 v-if='level==1' > <slot/> </h1> 
+        //     <h2 v-if='level==1' > <slot/> </h2> 
+        //     <h3 v-if='level==1' > <slot/> </h3> 
+        // `
+    })
+
+    // app挂载
+    const vm = app.mount('#root')
+</script>
+
+</html>

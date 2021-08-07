@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>directive</title>
+    <script src="https://unpkg.com//vue@next"></script>
+</head>
+
+<body>
+    <div id='root'></div>
+</body>
+
+<script>
+    // 之定义指令 directive
+
+    // 局部自定义指令
+    const directives = {
+        focuss: {
+            mounted(el) {
+                el.focus();
+            }
+        }
+    }
+    const app = Vue.createApp({
+        directives: directives,
+        data() {
+            return {
+                info: false
+            }
+        },
+        mounted() {},
+        template: `
+            <div>
+                <input v-focuss />
+                <div v-show='info'>
+                    <input v-focus />
+                </div>
+
+                <div v-if='info'>
+                    <input v-focus />
+                </div>
+            </div> 
+        `
+    })
+
+    // 全局 自定义指令
+    app.directive('focus', {
+        beforeMount(el) {
+            // 挂载之前
+            console.log('beforeMount')
+        },
+        mounted(el) {
+            // 挂载
+            console.log('mounted')
+            el.focus();
+        },
+
+        // v-show 是控制隐藏显示 切换时元素一直还在 
+        beforeUpdate() {
+            // 没渲染之前
+            console.log('beforeUpdate')
+        },
+        updated() {
+            // 渲染
+            console.log('updated')
+        },
+
+        // v-if 是控制元素是否存在 切换时 会涉及到元素销毁与创建
+        beforeUnmount() {
+            // 销毁之前
+            console.log('beforeUnmount')
+        },
+        unmounted() {
+            // 销毁
+            console.log('unmounted')
+        }
+    })
+
+
+    // app挂载
+    const vm = app.mount('#root')
+</script>
+
+</html>

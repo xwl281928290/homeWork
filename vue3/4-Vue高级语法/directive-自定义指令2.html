@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>directive</title>
+    <script src="https://unpkg.com//vue@next"></script>
+    <style>
+        .header {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='root'></div>
+</body>
+
+<script>
+    // 之定义指令 directive
+
+    // 局部自定义指令
+    const directives = {
+        focuss: {
+            mounted(el) {
+                el.focus();
+            }
+        }
+    }
+    const app = Vue.createApp({
+        directives: directives,
+        data() {
+            return {
+                topNum: 400
+            }
+        },
+        mounted() {},
+        template: `
+            <div>
+                <div v-pos:left='topNum' class='header'>
+                    <input   />
+                </div>
+            </div> 
+        `
+    })
+
+    // 全局 自定义指令
+    app.directive('pos', {
+
+
+        // 挂载 元素已经渲染完成
+        mounted(el, binding) {
+            // 控制太修改 举例 vm.$data.topNum = 100 发现数据变化 但是 页面没有从新渲染（因为mounted不会坚挺变化）
+            el.style.top = binding.value + 'px';
+
+            // v-pos:left 的left相当于传递的属性 可以通过binding.arg 获取 
+            el.style[binding.arg] = binding.value + 'px';
+        },
+        updated(el, binding) {
+            // 坚挺数据变化
+            el.style.top = binding.value + 'px';
+            el.style[binding.arg] = binding.value + 'px';
+        }
+    })
+
+    // 如果自定义指令 中 只有 mounted 和updated 并且相同 可以简写 效果一样
+    // app.directive('pos', (el, binding) => {
+    //     el.style.top = (binding.value + 'px')
+    //     el.style[binding.arg] = binding.value + 'px';
+    // })
+
+
+    // app挂载
+    const vm = app.mount('#root')
+</script>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> composition 生命周期函数</title>
+    <script src="https://unpkg.com//vue@next"></script>
+</head>
+
+<body>
+    <div id='root'></div>
+</body>
+
+<script>
+    const app = Vue.createApp({
+
+        // vue3 生命周期中没有 beforeCreate，created 因为setup 的执行时间就在 beforeCreate与created中间
+        // vue3 新增 onRenderTracked ，onRenderTriggered
+
+        // vue2 与 vue3 区别
+        // beforeMount =>onBeforeMount
+        // mounted = > onMounted
+        // beforeUpdate = >onBeforeUpdate
+        // updated => onUpdated
+        // beforeUnmount = onBeforeUnmount
+        // unmounted = onUnmounted
+        setup() {
+            const { ref, onBeforeMount, onMounted, onBeforeUpdate,onUpdated,onBeforeUnmount,onUnmounted,
+                onRenderTracked,onRenderTriggered } = Vue;
+            const name = ref('dell')
+            onBeforeMount(()=>{
+                console.log('onBeforeMount')
+            })
+
+            onMounted(()=>{
+                console.log('onMounted')
+            })
+
+            onBeforeUpdate(()=>{
+                console.log('onBeforeUpdate')
+            })
+
+            onUpdated(()=>{
+                console.log('onUpdated')
+            })
+
+            // 每次从新渲染时执行 收集依赖
+            onRenderTracked(()=>{
+                console.log('onRenderTracked')
+            })
+            // 从新触发渲染是执行
+            onRenderTriggered(()=>{
+                console.log('onRederTriggered')
+            })
+
+            const handleClick = () =>{
+                name.value = 'lee'
+            }
+
+            return { name,handleClick}
+        },
+        template: `
+            <div @click='handleClick'>
+                {{name}}
+            </div>
+        `
+    })
+
+    // app挂载
+    const vm = app.mount('#root')
+</script>
+
+</html>

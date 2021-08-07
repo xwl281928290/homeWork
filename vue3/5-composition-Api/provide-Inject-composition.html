@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> composition 生命周期函数</title>
+    <script src="https://unpkg.com//vue@next"></script>
+</head>
+
+<body>
+    <div id='root'></div>
+</body>
+
+<script>
+    // vue组件之间 是单项数据流 
+
+    // provide（发出） --》inject（接受）
+
+    const app = Vue.createApp({
+        setup() {
+            const {provide,ref,readonly } = Vue;
+            const name = ref('dell')
+            // provide ('name',name); //不设置readonly 子组件可以修改
+            // provide ('name',readonly(name));
+            provide('changeName',(value) =>{
+                name.value = value
+            })
+            return {}
+        },
+        template: `
+            <div >
+                <child/>
+            </div>
+        `
+    })
+
+    app.component('child',{
+        setup(){
+            const {inject } = Vue;
+            const name = inject('name');
+            const changeName = inject('changeName')
+            const handleClick = () =>{
+                // 如果父组件设置readonly 不能修改
+                // name.value = 'lee'  //父组件不设置readonly 可以修改父组件值 但不符合单项数据流情况
+                // changeName('lee')
+            }
+            return {name,handleClick}
+        },
+        template:'<div @click="handleClick">{{name}}</div>'
+        
+    })
+
+    // app挂载
+    const vm = app.mount('#root')
+</script>
+
+</html>
