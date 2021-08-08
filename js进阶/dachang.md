@@ -322,3 +322,27 @@
     区别：
         http：是无状态 单向协议 请求只能通过客户端到服务器
         websocket：允许客户端与服务器双向通信 一次连接 一直保持连接状态
+
+# iframe通讯
+	1:在内嵌项目中使用top.postMessage('传递的数据，尽量是字符串'，'需要接收消息的window域名')
+		window.parent.postMessage(
+			{
+				title:'xxxx',
+				data:{}
+			},
+			'*' //任意域名
+		)
+	2:在接受页面用 window.addEventListener("message", （e）=> {});来接受消息
+		window.AddEventListener('message',(e)=>{
+			if(e.title == xxx){}
+		})
+# flex
+# 浏览器崩溃
+# 内存泄露
+	含义：应用程序不再需要占用内存的时候，由于某些原因，内存没有被操作系统或可用内存池回收
+	引起内存泄露：
+		1： 意外的全局变量
+		2：被遗忘的计时器或回调函数
+		3：脱离 DOM 的引用
+		4：闭包
+
