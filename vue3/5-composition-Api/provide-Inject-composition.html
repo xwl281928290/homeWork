@@ -22,8 +22,8 @@
         setup() {
             const {provide,ref,readonly } = Vue;
             const name = ref('dell')
-            // provide ('name',name); //不设置readonly 子组件可以修改
-            // provide ('name',readonly(name));
+            // provide ('name','dell'); //不设置readonly 子组件可以修改
+            provide ('name',readonly(name)); // 只读 避免自组建自己修改父组件数据
             provide('changeName',(value) =>{
                 name.value = value
             })
@@ -39,12 +39,12 @@
     app.component('child',{
         setup(){
             const {inject } = Vue;
-            const name = inject('name');
+            const name = inject('name'); //接受父组件传值
             const changeName = inject('changeName')
             const handleClick = () =>{
                 // 如果父组件设置readonly 不能修改
                 // name.value = 'lee'  //父组件不设置readonly 可以修改父组件值 但不符合单项数据流情况
-                // changeName('lee')
+                changeName('lee') //推荐使用
             }
             return {name,handleClick}
         },

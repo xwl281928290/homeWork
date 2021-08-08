@@ -10,8 +10,8 @@
 
 # 移动端适配几种方法
 
-    一 利用基础的rem适配
-        1 indexhtml设置 
+    一 使用基础的rem适配
+        1 indexhtml 动态设置当前屏幕对应的html的font-size大小
             var widht = document.documentElement.clientWidth || document.body.clientWidth;
             var ratio = widht / 375;
             var fontSize = 100 * ratio;
@@ -23,6 +23,7 @@
             body{
                 font-size: 0.12rem;
             }
+			
     二 使用媒体查询 设置屏幕区间fantsize大小
         html {
             font-size: 20px;

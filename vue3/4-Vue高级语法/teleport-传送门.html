@@ -37,7 +37,9 @@
 </body>
 
 <script>
-    // teleport 传送门 to属性 对应的值 可以是 标签 或class id
+    // teleport 传送门 
+	//  	通过to属性将dom传送到指定的标签内部 
+	// 		to属性 对应的值 可以是 标签 或class id
     const app = Vue.createApp({
         data() {
             return {
@@ -48,6 +50,7 @@
         template: `
             <div class='area'>
                <button @click='show=true'>按钮</button>
+			   // 把莫太框传送到 #root 内部
                 <teleport to='#root'>
                     <div class='mask' v-show='show'></div>
                 </teleport>

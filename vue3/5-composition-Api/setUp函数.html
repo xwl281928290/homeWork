@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> composition 生命周期函数</title>
+    <script src="https://unpkg.com//vue@next"></script>
+</head>
+
+<body>
+    <div id='root'></div>
+</body>
+
+<script>
+    // setUp 应该被用做执行流程控制
+    const app = Vue.createApp({
+		template:`<div @click='handleClick'>{{name}}</div>`,
+		methods:{
+			test(){
+				console.log(this.$options.setup());
+			}
+		},
+		mounted(){
+			this.test();
+		},
+		// create 实话被完全初始化之前 就已经调用setup
+        setup() {
+			// this.test() ----xxx 不能使用this
+			return {
+				name:'dell',
+				handleClick:()=> {
+					alert(123)
+				}
+			}
+        },
+    })
+
+
+    // app挂载
+    const vm = app.mount('#root')
+</script>
+
+</html>

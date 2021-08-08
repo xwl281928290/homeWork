@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> composition 生命周期函数</title>
+    <script src="https://unpkg.com//vue@next"></script>
+</head>
+
+<body>
+    <div id='root'></div>
+</body>
+
+<script>
+    // ref,reactive 响应式的引用
+	// 原理 通过proxy对数据进行封装 当数据变化是 触发模板等内容的更新
+	
+	// ref: 处理基础类型的数据
+	// reactive:处理 对象 数组
+	// readonly：设置只读不能修改
+	// toRefs(): 将结构后的数据依然成为响应式
+    const app = Vue.createApp({
+		// name 相当于name.value
+		template:`<div>{{name}}</div>`,
+		setup(props,context){
+			cosnt { ref,reactive,readonly,toRefs } = Vue;
+			//proxy  'dell' 变成 proxy({value:'dell'}) 这样的一个响应引用
+			// dell ==》 {value:'dell0'} 所以修改时需要 name.value
+			const name = ref('dell');
+			const ageObj = reactive({age:'12'})
+			const copyAge = readonly(ageObj);
+			setTimeout(()=>{
+				ageObj.age = '22'
+				copyAge.age = '33' // 会报警告 设置了只读
+			},2000)
+			
+			
+			const { age } = ageObj;  // 结构后 会变成非响应式 
+			// toRefs proxy({age:'12'})---> {name:proxy({value:'dell'})}
+			const { age } = toRefs(ageObj) // 使用roRefs 在变成响应式
+			
+			
+			return {name}
+		}
+    })
+
+
+    // app挂载
+    const vm = app.mount('#root')
+</script>
+
+</html>

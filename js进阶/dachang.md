@@ -302,12 +302,12 @@
     http请求过程：
         1 DNS解析：
             查询对应的ip地址(dns查询：浏览器缓存-系统缓存-路由缓存-DNS缓存-根域名服务器)
-        2 Tcp连接：
+        2 Tcp连接：三次握手
             浏览器向web服务器发送一个Http请求（Tcp 三次握手）
         3 发送HTTP请求
         4 服务器处理请求并返回HTTP报文
         5 浏览器解析渲染页面
-        6 连接结束
+        6 连接结束 四次挥手
     请求原理
         http协议是应用层的一种协议，是一种c/s架构服务，基于tcp/ip协议来通信，监听tcp的80端口
         http协议实现的是客户端可以向服务端获得web资源
@@ -346,3 +346,11 @@
 		3：脱离 DOM 的引用
 		4：闭包
 
+
+# 原声js坚挺锚点变化模拟vue 路由
+	body标签设置 <body onhashchange='getHash()'></body>
+		function getHash(){
+			var hash = window.location.hash;
+			if(hash == '#index')....
+		}
+# 

@@ -269,7 +269,7 @@
 
 # vue-router
     模式：
-        1 hash：利用url中的hash（‘#’）
+        1 hash：利用url中的hash（‘#’） //原声js 坚挺路由变化可以通过 body标签设置 <body onhashchange='getHash()'></body>
             
         2 history：利用History interface 在HTML5中新增的方法
     跳转方式：
@@ -329,10 +329,14 @@
         this。router。push 会网history中添加新记录
 
 # vue坑
-    给对象添加属性 不是响应式
-        解决方案
-            1 Vueset(对象，属性，值)
+    给对象新增属性 不是响应式
+		原因：
+			1:data中的对象属性在初始化时已经完成了 dep的注册环节
+			2:添加新属性的时候，却无法触发 Object.defineProperty 的getter、setter 事件属性的拦截
+        解决方案：
+            1 this.$set(obj,"propertyName","value") 来添加属性 
             2 Vue.next(回掉函数进行获取)
+		
 # vue项目优化解决方案
     1 css抽离
     2 抽离公共js代码抽离
@@ -348,6 +352,11 @@
     原理：通过postCss转译实现 给所有dom添加一个唯一不重复的动态属性
 
 # vue的nextTick 的原理是什么
+	作用：
+		　在下次DOM更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的DOM。
+	什么时候使用nextTick：
+		1 created()钩子函数进行的DOM操作一定要放在Vue.nextTick()的回调函数中。原因是什么呢，原因是在created()钩子函数执行的时候DOM 其实并未进行任何渲染
+		2 的到数据后在遍历元素，则在mounted里不一定能得到该元素，则也需要使用Vue.nextTick()；
     原理：
         通过异步队列控制 DOM 更新和 nextTick 回调函数先后执行的方式。
     1 常见的宏任务有：script, setTimeout, setInterval。。
