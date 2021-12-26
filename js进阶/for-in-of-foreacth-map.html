@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-14 17:08:18
- * @LastEditTime: 2021-07-14 17:20:37
+ * @LastEditTime: 2021-12-26 00:07:10
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/js进阶/for-in-of-foreacth-map.html
@@ -20,7 +20,8 @@
 <body>
     <script>
         let arr = ['a', 'b', 'c'];
-        arr.hobby = 'foosball';
+        arr.aaa = 'foosball';
+        console.log(arr)
 
         for (let index in arr) { //原型链上的属性也会被访问
             console.log(`${arr[index]}`);    // a b c 'foosball'
@@ -44,6 +45,25 @@
         arr.map((item) => {
             console.log(item) //a b c
         })
+
+        console.log('--------filter 过滤返回新数组-----------')
+        let arr1 = [1, 2, 3, 4, 5];
+        function max5(arr) {
+            return arr.filter(x => x > 1);
+        }
+        console.log(max5(arr1)) //[2, 3, 4, 5]
+
+        console.log('--------some 又一个满足-----------')
+        function max6(arr) {
+            return arr.some(x => x > 1);
+        }
+        console.log(max6(arr1)) //true
+
+        console.log('--------every 全部满足-----------')
+        function max7(arr) {
+            return arr.every(x => x > 1);
+        }
+        console.log(max7(arr1)) //false
 
 
     </script>

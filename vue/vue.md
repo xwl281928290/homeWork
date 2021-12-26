@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-16 09:34:18
- * @LastEditTime: 2021-07-26 17:09:25
+ * @LastEditTime: 2021-12-26 16:47:06
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/vue/vue.md
@@ -158,6 +158,11 @@
     // 最后蛋糕做好之后，通知所有的客户
     wantCake.notify()
 # vue响应式原理
+    1 observer 遍历对象所有的属性设置get/set 
+    2 watcher
+    3 compiler 编译标签模版 编译过程中 将标签于数据进行关联 注册一个watcher观察者 当数据变化时 watcher调用对应的compiler 编译更行对应的页面
+    
+
     借鉴文章： https://zhuanlan.zhihu.com/p/88648401
     
     一 init 阶段： VUE 的 data的属性都会被reactive化，也就是加上 setter/getter函数。
@@ -271,7 +276,9 @@
     模式：
         1 hash：利用url中的hash（‘#’） //原声js 坚挺路由变化可以通过 body标签设置 <body onhashchange='getHash()'></body>
             
-        2 history：利用History interface 在HTML5中新增的方法
+        2 history：通过history.pushState或者history.replaceState这样的API锚点来改变浏览器的历史记录堆栈 在HTML5中新增的方法
+            优点：没有锚点 能使用浏览器后退前进功能
+            缺点：实现需要考虑多种路由变化的情况；兼容性相对较差
     跳转方式：
         1 <router-link to='需要跳转的页面路径'>
         2 this.$router.push('') history有记录可以回退

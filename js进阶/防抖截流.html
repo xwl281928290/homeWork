@@ -1,10 +1,10 @@
 <!--
  * @Author: 谢维林
  * @Date: 2021-07-02 14:53:54
- * @LastEditTime: 2021-07-02 18:01:38
- * @LastEditors: 谢维林
+ * @LastEditTime: 2021-11-19 19:07:26
+ * @LastEditors: Mr.xie
  * @Description: 
- * @FilePath: /test/防抖截流.html
+ * @FilePath: /github/homeWork/js进阶/防抖截流.html
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <!DOCTYPE html>
@@ -21,6 +21,8 @@
 
     防抖input <input />
 
+    <button onClick='button()'>防抖按钮</button>
+
     <script>
         // 防抖：你狂点按钮也没有，等你冷静下来事件才会触发。
         // 节流：游戏里面的技能冷却功能。  onresize，scroll，mousemove ,mousehover 等
@@ -28,15 +30,26 @@
         let input = document.getElementsByTagName('input')[0];
         input.addEventListener('keyup', function (e) {
             let value = e.target.value
-            debounceAjax(value);
-            // throttleAjax(value)
+            // debounceAjax(value);
+            throttleAjax(value)
 
         })
 
+        function button() {
+            console.log(throttleAjax)
+            throttleAjax()
+            // throttle1(test, 1000)();
+        }
+
+
         //执行目标函数
         const ajax = (c) => console.log('ajax request ' + c)
-        let debounceAjax = debounce1(ajax, 500);
-        // let throttleAjax = throttle1(ajax, 500);
+
+        function test() {
+            console.log(1111)
+        }
+        // let debounceAjax = debounce1(ajax, 500);
+        let throttleAjax = throttle1(test, 1000);
 
 
         // 防抖：

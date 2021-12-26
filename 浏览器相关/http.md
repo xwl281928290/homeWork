@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-15 08:47:00
- * @LastEditTime: 2021-07-28 15:37:09
+ * @LastEditTime: 2021-08-09 10:34:22
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/浏览器相关/http.md
@@ -21,6 +21,8 @@
         301:永久重定向
         302:临时重定向
         304:未修改 请求缓存
+        400：表示请求报文中存在语法错误
+        404：表示服务器上无法找到请求的资源
         403:服务器得到请求 但是拒绝执行
 # osi七层模型
     应用层：文件传输 常用协议HTTP，snmp，FTP
