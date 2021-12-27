@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-28 15:39:06
- * @LastEditTime: 2021-07-28 16:00:56
+ * @LastEditTime: 2021-12-26 19:46:56
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/sass/sass.md
@@ -27,3 +27,10 @@
         例如：
             color: $content-fontColor;
 
+# 如何在 scss 或 less 下修改element UI 组件的样式
+    sass：
+        /deep/ .el-dialog__header{}
+    less：
+        ::v-deep .el-dialog__header{}
+    原生css：
+        >>> .el-dialog__header{}

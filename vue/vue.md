@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.xie
  * @Date: 2021-07-16 09:34:18
- * @LastEditTime: 2021-12-26 16:47:06
+ * @LastEditTime: 2021-12-26 21:55:55
  * @LastEditors: Mr.xie
  * @Description: 
  * @FilePath: /homeWork/vue/vue.md
@@ -336,7 +336,7 @@
         this。router。push 会网history中添加新记录
 
 # vue坑
-    给对象新增属性 不是响应式
+    给对象新增对象属性时 不是响应式
 		原因：
 			1:data中的对象属性在初始化时已经完成了 dep的注册环节
 			2:添加新属性的时候，却无法触发 Object.defineProperty 的getter、setter 事件属性的拦截
@@ -369,4 +369,70 @@
     1 常见的宏任务有：script, setTimeout, setInterval。。
     2 常见的微任务有：process.nextTick(nodejs),Promise.then()。。
 
-    
+
+            
+# for 循环 key的作用
+    提升效率：通过这个 key，我们的 diff 操作可以更准确、更快速
+
+# computed计算属性和watch之间的区别
+    computed:
+        1.computed 具有缓存功能，可以监听对象某个具体属性。
+        2.变量不在 data中定义，而是定义在computed中。
+        3.根据一个或多个现有数据去生成一个新数据，并且这两个数据会永久的建立关系，还会建立缓存，当无关数据改变的时候，不会重新计算而是直接使用缓存中的值。
+    注意：
+        如果是在 methods中每调用一次就会重新计算一次，为了进行不必要的资源消耗，选择用计算属性. 初始化的时候就可以被监听到并且计算
+    应用：
+        计算累加
+         computed: {
+            isMan () {
+                return this.num * this.num1
+            }
+        }
+    watch：
+        1.watch 监听的是已经在 data 中定义的变量, 当该变量变化时，会触发 watch 中的方法
+        2.watcher，当需要在数据变化时执行异步或开销较大的操作时，这时watch是非常有用的
+        3.watch可以进行深度监听，监听对象的变化。
+        4.只能监听简单数据类型，如果监听复杂数据类型，如对象，无法监听对象具体某个属性。
+    应用：
+        watch: {
+            queryData: {   
+                handler: function() {
+                    //do something
+                },
+                deep: true
+            }
+        }
+        
+# vnode是什么 入如何渲染的
+
+# keep-alive
+    keep-alive是一个抽象组件：
+        它自身不会渲染一个DOM元素，也不会出现在父组件链中；使用keep-alive包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。
+
+    一个场景
+        用户在某个列表页面选择筛选条件过滤出一份数据列表，由列表页面进入数据详情页面，再返回该列表页面，我们希望：列表页面可以保留用户的筛选（或选中）状态。
+        keep-alive就是用来解决这种场景。当然keep-alive不仅仅是能够保存页面/组件的状态这么简单，
+        它还可以避免组件反复创建和渲染，有效提升系统性能。总的来说，keep-alive用于保存组件的渲染状态。
+
+    <keep-alive>
+        <coma v-if="test"></coma>
+        <comb v-else="test"></comb>
+    </keep-alive>
+    <button @click="test=handleClick">请点击</button>
+    切换组件 被缓存的组件不会消失
+
+    keep-alive组件提供了include与exclude两个属性来允许组件有条件地进行缓存
+    <keep-alive include="a">
+        <component></component>
+    </keep-alive
+
+    <keep-alive exclude="a">
+        <component></component>
+    </keep-alive>
+
+    生命钩子：
+        keep-alive提供了两个生命钩子，分别是activated与deactivated。
+        因为keep-alive会将组件保存在内存中，并不会销毁以及重新创建，所以不会重新调用组件的created等方法，
+        需要用activated与deactivated这两个生命钩子来得知当前组件是否处于活动状态
+
+
